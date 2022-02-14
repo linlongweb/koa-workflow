@@ -1,6 +1,6 @@
 # workflow-ui 前端工作流 UI
 
-基于vue前端工作流UI
+基于vue前端工作流UI,在原作者的基础上进行修改
 
 ## 前端工作流生成器-Generator
 
