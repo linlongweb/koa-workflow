@@ -23,8 +23,6 @@ export default {
   }),
   methods: {
     addnode (node) {
-      // console.log('add-node-btn-box 新结节')
-      // console.log(node)
       this.$emit('addnode', node)
     }
   }
