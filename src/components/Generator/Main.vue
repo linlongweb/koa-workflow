@@ -26,18 +26,22 @@
     </div>
     <div class="fd-nav-content">
       <div class="dingflow-design">
-        <div class="ie-polyfill-container">
-          <div :key="key" class="box-scale" style="transform: scale(1); transform-origin: 50% 0px 0px;">
-            <Node v-for="(item, index) in items" :key="index" :node="item" @addnode="addnode" @delNode="delNode(item)" />
-            <EndNode />
-            <ErrorsModal :dialog.sync="errorsModal" :data="errors" />
+        <div :class="viewModal?'ie-polyfill-container no-dialog':'ie-polyfill-container work-dialog' ">
+          <div style="width:100%;height:100%">
+            <div :key="key" class="box-scale" style="transform: scale(1); transform-origin: 50% 0px 0px;">
+              <Node v-for="(item, index) in items" :key="index" :node="item" @addnode="addnode" @delNode="delNode(item)" />
+              <EndNode />
+              <ErrorsModal :dialog.sync="errorsModal" :data="errors" />
+              <AModal :dialog.sync="viewModal">
+                <pre style="font-family: Monaco,Menlo,Consolas,Bitstream Vera Sans Mono,monospace;font-size: 14px;">{{ JSON.stringify(data1.node, null, 4) }}</pre>
+              </AModal>
+            </div>
           </div>
+
         </div>
       </div>
     </div>
-    <AModal :dialog.sync="viewModal">
-      <pre style="font-family: Monaco,Menlo,Consolas,Bitstream Vera Sans Mono,monospace;font-size: 14px;">{{ JSON.stringify(data1.node, null, 4) }}</pre>
-    </AModal>
+
   </div>
 </template>
 <script>
