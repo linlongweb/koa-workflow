@@ -1,44 +1,41 @@
 <template>
   <div id="app">
-    <Main
-      :data.sync="data"
-      @ok="ok"
-    />
+    <Main :data.sync="data" @ok="ok" />
   </div>
 </template>
 
 <script>
-import Main from './components/Generator/Main'
+import Main from "./components/Generator/Main";
 export default {
-  name: 'App',
+  name: "App",
   components: {
-    Main
+    Main,
   },
   props: {
     data: {
       type: Object,
-      default: undefined
-    }
+      default: undefined,
+    },
   },
-  data () {
-    return {
-    }
+  data() {
+    return {};
   },
   methods: {
-    ok (data) {
-      this.$emit('update:data', data)
-    }
-  }
-}
+    ok(data) {
+      this.$emit("update:data", data);
+    },
+  },
+};
 </script>
 
-<style>
+<style >
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  height: calc(100vh - 120px);
 }
 </style>

@@ -1,21 +1,21 @@
-const path = require('path')
-function resolve (dir) {
-  return path.join(__dirname, dir)
+const path = require("path");
+function resolve(dir) {
+  return path.join(__dirname, dir);
 }
 module.exports = {
   productionSourceMap: true,
+  lintOnSave: false,
   pages: {
     index: {
       // 测试时使用
-      // entry: 'src/main.js',
+      entry: 'src/main.js',
       // 发布时使用
-      entry: 'src/index.js',
-      template: 'public/index.html',
-      filename: 'index.html'
-    }
+      // entry: "src/index.js",
+      template: "public/index.html",
+      filename: "index.html",
+    },
   },
-  chainWebpack: config => {
-    config.resolve.alias
-      .set('@', resolve('src'))
-  }
-}
+  chainWebpack: (config) => {
+    config.resolve.alias.set("@", resolve("src"));
+  },
+};

@@ -3,7 +3,7 @@
   "version": "1.2.3",
   "repository": {
     "type": "git",
-    "url": "git+https://https://github.com/go-workflow/workflow-ui"
+    "url": "git+https://github.com/linlongweb/koa-workflow.git"
   },
   "main": "lib/workflow-ui.common.js",
   "files": [

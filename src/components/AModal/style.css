@@ -33,7 +33,7 @@
   font-feature-settings: "tnum";
   position: relative;
   top: 20%;
-  width: auto;
+  width: 600px !important;
   margin: 0 auto;
   padding-bottom: 24px;
   pointer-events: none;
@@ -73,6 +73,7 @@
 }
 .ant-modal-confirm .ant-modal-confirm-btns {
   float: right;
+  text-align: right;
   margin-top: 24px;
 }
 .ant-modal-close {

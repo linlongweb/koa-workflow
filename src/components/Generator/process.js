@@ -53,14 +53,15 @@ export const iteratorData = (resultArr, data) => {
   arr.push(data)
   while (arr.length > 0) {
     var temp = arr.pop()
-    if (temp.type === 'route') {
+    if (temp.type == 'route') {
       resultArr.push(temp)
     } else {
       var item = {
         nodeId: temp.nodeId,
         name: temp.name,
         type: temp.type,
-        properties: temp.properties
+        properties: temp.properties,
+        childNode:{}
       }
       resultArr.push(item)
     }
@@ -73,10 +74,10 @@ export const findIndex = (nodeId, arr) => {
   var position = null
   arr.some((value, index) => {
     // console.log('value: ' + value.nodeId + ', index:' + index + ',')
-    if (value.nodeId === nodeId) {
+    if (value.nodeId == nodeId) {
       position = index
       return true
-    }
+    } 
   })
   return position
 }
@@ -100,7 +101,7 @@ export const delNode = (nodeDel, node, arr) => {
   // console.log(nodeDel)
   // 从遍历后数组中删除节点
   var index = findIndex(nodeDel.nodeId, arr)
-  console.log(index)
+  /* console.log(index) */
   arr.splice(index, 1)
   deleteNode(nodeDel, node)
 }
@@ -113,7 +114,7 @@ export const deleteNode = (nodeDel, node) => {
   var temp = node
   // 找到删除节点的父节点
   while (temp != null) {
-    if (temp.nodeId === nodeDel.prevId) {
+    if (temp.nodeId == nodeDel.prevId) {
       // 将删除节点的子节点指向父节点
       if (nodeDel.childNode == null) {
         temp.childNode = null
@@ -127,6 +128,7 @@ export const deleteNode = (nodeDel, node) => {
     if (temp.childNode != null) temp = temp.childNode
   }
 }
+
 export const findParent = (newNode, node) => {
   if (node.nodeId === newNode.prevId) {
     if (node.childNode != null && node.childNode.nodeId != null) {
@@ -164,4 +166,18 @@ export const setConditionFactor = (condNode, node) => {
 }
 export const checkProperties = (node) => {
 
+}
+
+export function deepClone(obj) {
+  /**
+   * 加入空值判断
+   */
+  if (obj === null) {
+    return null;
+  }
+  let newObj = obj instanceof Array ? [] : {};
+  for (let k in obj) {
+    newObj[k] = typeof obj[k] === "object" ? deepClone(obj[k]) : obj[k];
+  }
+  return newObj;
 }
