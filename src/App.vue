@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Main :data.sync="data" @ok="ok" />
+    <Main :data.sync="data" @close="close" @ok="ok" :roledata.sync="roledata" />
   </div>
 </template>
 
@@ -16,6 +16,10 @@ export default {
       type: Object,
       default: undefined,
     },
+    roledata: {
+      type: Array,
+      default: undefined,
+    },
   },
   data() {
     return {};
@@ -24,18 +28,19 @@ export default {
     ok(data) {
       this.$emit("update:data", data);
     },
+    close() {
+      this.$emit("close");
+    },
   },
 };
 </script>
 
-<style >
+<style>
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
-  height: calc(100vh - 120px);
 }
 </style>

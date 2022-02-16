@@ -34,6 +34,7 @@ export default {
   methods: {
     close() {
       this.dialog = false;
+      this.$emit("update:isShow", false);
     },
   },
 };

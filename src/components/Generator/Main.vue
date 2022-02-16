@@ -19,6 +19,9 @@
         </div>
       </div>
       <div class="fd-nav-right">
+        <!-- <button type="button" class="ant-btn button-preview" @click="preview">
+          <span>预 览</span>
+        </button> -->
         <button type="button" v-if="disabled" class="ant-btn button-preview" @click="save">
           <span>{{title}}</span>
         </button>
@@ -26,22 +29,19 @@
     </div>
     <div class="fd-nav-content">
       <div class="dingflow-design">
-        <div :class="viewModal?'ie-polyfill-container no-dialog':'ie-polyfill-container work-dialog' ">
-          <div style="width:100%;height:100%">
-            <div :key="key" class="box-scale" style="transform: scale(1); transform-origin: 50% 0px 0px;">
-              <Node v-for="(item, index) in items" :key="index" :node="item" @addnode="addnode" @delNode="delNode(item)" />
-              <EndNode />
-              <ErrorsModal :dialog.sync="errorsModal" :data="errors" />
-              <AModal :dialog.sync="viewModal">
-                <pre style="font-family: Monaco,Menlo,Consolas,Bitstream Vera Sans Mono,monospace;font-size: 14px;">{{ JSON.stringify(data1.node, null, 4) }}</pre>
-              </AModal>
-            </div>
+        <!-- <div v-if="viewModal" class="dialog-modal-mask"></div> -->
+        <AModal :dialog.sync="viewModal" style="z-index:2000;">
+          <pre style="font-family: Monaco,Menlo,Consolas,Bitstream Vera Sans Mono,monospace;font-size: 14px;">{{ JSON.stringify(data1.node, null, 4) }}</pre>
+        </AModal>
+        <div class="ie-polyfill-container">
+          <div id="box-scale" :key="key" class="box-scale" style="transform: scale(1); transform-origin: 50% 0px 0px;">
+            <Node v-for="(item, index) in items" :key="index" :node="item" @addnode="addnode" @delNode="delNode(item)" />
+            <EndNode />
+            <ErrorsModal :dialog.sync="errorsModal" :data="errors" />
           </div>
-
         </div>
       </div>
     </div>
-
   </div>
 </template>
 <script>
@@ -51,7 +51,6 @@ import ErrorsModal from "./errors-modal";
 import {
   iteratorData,
   addNewNode,
-  delNode,
   checkData,
   findIndex,
   deepClone,
@@ -154,14 +153,10 @@ export default {
         this.$forceUpdate();
         return;
       }
-      /* console.log(arr, "arr"); */
-      /*  this.deleteNode(nodeDel, node); */
       let data = deepClone(arr);
-      /* this.items = arr; */
       delete data[data.length - 1]["childNode"];
       for (let j = arr.length - 1; j > -1; j--) {
         if (!data[j - 1]) {
-          /* this.data1.node.childNode = deepClone(data[0]); */
           arr.unshift({
             name: "发起人",
             type: "start",
@@ -206,17 +201,11 @@ export default {
       }
     },
     delNode(node) {
-      /* console.log("删除节点:" + node.properties.actionerRules[0].labelNames); */
       const data = deepClone(this.data1);
       this.newarr = [];
       this.tree2(data.node);
       this.delenode(node, this.data1.node, this.newarr);
       this.key++;
-      /* console.log(node, this.data1.node, this.items); */
-      /*  console.log(this.key); */
-      // this.iteratorData(this.data1.node)
-      // console.log(this.data1.node)
-      // console.log(this.items)
     },
     tree2(obj) {
       for (let i in obj) {
@@ -226,7 +215,6 @@ export default {
           if (obj[i]) {
             obj[i] = {};
           }
-          /* delete obj[i]; */
         }
       }
     },
@@ -246,7 +234,7 @@ export default {
         this.errors = errors;
         return;
       }
-      this.viewModal = true;
+      this.$set(this.data, "viewModal", true);
     },
   },
 };
@@ -283,12 +271,5 @@ export default {
   overflow-x: auto;
   overflow-y: auto !important;
   height: 100%;
-}
-.dingflow-design {
-  width: 100%;
-  height: 100%;
-  background-color: #f5f5f7;
-  overflow: auto;
-  position: relative;
 }
 </style>

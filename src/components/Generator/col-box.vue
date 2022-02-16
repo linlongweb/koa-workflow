@@ -66,8 +66,12 @@ export default {
     },
     delNode(node) {
       var index = findIndex(node.nodeId, this.items);
+      /* console.log(this.node, "传过来的节点"); */
       this.items.splice(index, 1);
+      /*  console.log(node, this.node1, this.items); */
+      /* delNode(node, this.node1, this.items) */
       let data = deepClone(this.items);
+      /* delete data[data.length - 1]["childNode"]; */
       if (data.length > 1) {
         data.shift();
       }
@@ -78,6 +82,12 @@ export default {
         return;
       }
       for (let j = data.length - 1; j > -1; j--) {
+        /* if (data[j] == 0 && !data[j - 1]) {
+          this.$set(this.node1, "childNode", data[0]);
+          this.$forceUpdate();
+          this.key++;
+          return;
+        } */
         data[j - 1]["childNode"] = data[j];
         data[j].prevId = data[j - 1].nodeId;
         data.splice(j, 1);
